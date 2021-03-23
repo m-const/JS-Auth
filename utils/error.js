@@ -84,62 +84,73 @@ Error Response
 
 const log = require("../utils/logger.js").log;
 
-function error(errorSTR,traceability=false,  error_uri = false, state = false) {
+function error(
+  errorSTR,
+  traceability = "",
+  error_uri = "",
+  state = ""
+) {
   //state must be passed through
   //TODO: error_uri logic/routing
-  //traceability is only passed through for logging - this should be helpful for determining why an error response was given when reviewing logs - ex. client_id 
-  const errorCode;
-  const errorDescription;
-
+  //traceability is only passed through for logging - this should be a helpful string for determining why an error response was given when reviewing logs - ex. client_id
+  var errorCode;
+  var errorDescription ;
   switch (errorSTR) {
+    
     case "invalid_request":
-      const errorCode = "invalid_request";
-      const errorDescription =
+       errorCode = "invalid_request";
+       errorDescription =
         "The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed.";
       break;
     case "unauthorized_client":
-      const errorCode = "unauthorized_client";
-      const errorDescription =
+       errorCode = "unauthorized_client";
+       errorDescription =
         "The client is not authorized to request an authorization code using this method.";
       break;
     case "access_denied":
-      const errorCode = "access_denied";
-      const errorDescription =
+       errorCode = "access_denied";
+       errorDescription =
         "The resource owner or authorization server denied the request.";
       break;
 
     case "unsupported_response_type":
-      const errorCode = "unsupported_response_type";
-      const errorDescription =
+       errorCode = "unsupported_response_type";
+       errorDescription =
         "The authorization server does not support obtaining an authorization code using this method.";
       break;
     case "invalid_scope":
-      const errorCode = "invalid_scope";
-      const errorDescription =
+       errorCode = "invalid_scope";
+       errorDescription =
         "The requested scope is invalid, unknown, or malformed.";
       break;
     case "server_error":
-      const errorCode = "server_error";
-      const errorDescription =
+       errorCode = "server_error";
+       errorDescription =
         "The authorization server encountered an unexpected condition that prevented it from fulfilling the request.";
       break;
     case "temporarily_unavailable":
-      const errorCode = "temporarily_unavailable";
-      const errorDescription =
+       errorCode = "temporarily_unavailable";
+       errorDescription =
         "The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.";
       break;
 
     default:
-      log(`Invalid error response code. Traceability: ${traceability}`, "ERROR");
+      log(
+        `Invalid error response code. Traceability: ${traceability}`,
+        "ERROR"
+      );
   }
 
   const errorResponseObject = {
     error: errorCode,
     error_description: errorDescription,
-    error_uri: false,
-    state: false,
+    error_uri: error_uri,
+    state: state,
   };
-  log(`${errorResponseObject.error} ${errorResponseObject.error_uri} ${errorResponseObject.state} Traceability: ${traceability}`, "INFO");
+  log(
+    `${errorResponseObject.error} ${errorResponseObject.error_uri} ${errorResponseObject.state} Traceability: ${traceability}`,
+    "INFO"
+  );
   return errorResponseObject;
 }
 
