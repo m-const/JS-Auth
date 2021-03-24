@@ -79,6 +79,8 @@ const jwt = require("jsonwebtoken");
 
 
 function authorizeClientID (client_id,redirect_uri="",scope,state){
+ //Validate required parameters are present
+
 
 }
 
@@ -86,32 +88,31 @@ function authorizeClientID (client_id,redirect_uri="",scope,state){
 const router = express.Router();
 
 router.post("/authorization", (req, res) => {
-  const responseType = req.body.response_type;
-  //TODO: make this extendable to allow for a registered extension value as described by Section 8.4.
+ //TODO: make response type extendable to allow for a registered extension value as described by Section 8.4. 
 
-  //MUST be one of "code"  or "token"
-  const validResponseTypes = ["code", "token"];
-  if (validResponseTypes.includes(responseType)) {
-  let responseObject;
-   switch (responseType) {
-    
-      case "code":
-         //Authorization Code Grant
+ const responseType = req.body?.response_type;
+ if(responseType == null) {
+       res.status(400).set("Content-Type","application/x-www-form-urlencoded").json(error("invalid_request"))
+ }
+ 
+ //MUST be one of "code"  or "token"
 
-         //Validate required parameters are present
+  if(responseType === "code"){
+      //Authorization Code Grant
+
+     
 
 
-         //Validate the client ID
-         responseObject = authorizeClientID();
+      //Authorize the client ID
+      responseObject = authorizeClientID();
 
-      break;
 
-   }
-  res.status(200).set("Content-Type","application/x-www-form-urlencoded").json(responseObject)
-  }else{
-          res.status(400).set("Content-Type","application/x-www-form-urlencoded").json(error("invalid_request"))
-    }
-
+      //return the response
+      res.status(200).set("Content-Type","application/x-www-form-urlencoded").json(responseObject)
+  }
+  if(responseType === "token"){
+ // implicit grant
+  }
 });
 
 module.exports = router;
