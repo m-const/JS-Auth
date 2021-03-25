@@ -1,7 +1,7 @@
 const clients = [
   {
     client_id:
-      "c4a0fd61c2ea8f234b4dfde7ff892a9abb9bbb1b625a37fda0b3aad0f5136a2f279334b37312e00ca7af622fd106e687",
+      "bafea36f7a90ff41329bc34bf6959b9ff583891f",
     identifyer: "John Smith",
     description: "",
     redirect_uri: {
@@ -15,7 +15,7 @@ const clients = [
   },
   {
     client_id:
-      "c4a0fd61c2ea8f234b4dfde7ff892a9abb9bbb1b625a37fda0b3aad0f5136a2f279334b37312e00ca7af622fd106e687",
+      "20235ae90dcf88389ccd693f57b622d21d33c24b",
     identifyer: "Sarah Walker",
     description: "",
     redirect_uri: {
