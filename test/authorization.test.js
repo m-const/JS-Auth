@@ -1,4 +1,4 @@
-const expect    = require("chai").expect;
+const assert    = require("chai").assert;
 const authorizaion = require("../routes/authorization");
 
 describe("Test Scenario 1", function() {

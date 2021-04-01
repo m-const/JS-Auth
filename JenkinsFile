@@ -1,0 +1,30 @@
+properties([parameters([string(defaultValue: 3000, description: 'Port?', name: 'PORT')])]) //${params.PORT}
+properties([parameters([string(defaultValue: 'JSAuth', description: 'Container Name?', name: 'CONTAINER_NAME')])]) //${params.CONTAINER_NAME}
+
+node ('docker'){
+    checkout scm
+    stages{
+        stage('Build') {
+            
+       
+                //run unit tests
+                sh 'npm test'
+
+                //prepare files for build
+
+                //
+                sh 'npm build'
+
+
+            
+        }
+
+        stage('Test') {
+           
+        }
+
+        stage('Deploy') {
+            echo 'Deploying....'
+        }
+    }
+}
