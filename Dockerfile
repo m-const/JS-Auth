@@ -13,6 +13,7 @@ ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 #copy the app
 COPY app.tar.gz /var/www/$APP_NAME
 
+WORKDIR /var/www/$APP_NAME
 #start the app
 RUN npm install app.tar.gz
 CMD ['npm','startProd']
