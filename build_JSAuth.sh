@@ -14,7 +14,8 @@ then
 fi
 
 echo "BDs: $BUILD_DIRS"
-#TODO: make this recursive for sub directories
+
+
 for DIR in $BUILD_DIRS
     do
         #check if the DIR is valid

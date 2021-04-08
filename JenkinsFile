@@ -1,8 +1,8 @@
 properties([
     parameters([
         string(name: 'PORT', defaultValue: "3000", description: 'Port?'),
-        string(name: 'CONTAINER_NAME', defaultValue: 'JSAuth', description: 'Application Name (used as container name, no spaces or symboles)?'),
-        string(name: 'IMAGE_NAME', defaultValue: 'JSAuth', description: "Docker Image Name")
+        string(name: 'CONTAINER_NAME', defaultValue: 'jsauth', description: 'Application Name (used as container name, no spaces or symboles)?'),
+        string(name: 'IMAGE_NAME', defaultValue: 'jsauth', description: "Docker Image Name")
     ])
 ])
 node ('docker'){
@@ -16,25 +16,29 @@ node ('docker'){
 
                 //run unit tests
                // sh 'npm test'
-
-                echo "Working in ${pwd}"
-                //make the tarball 
-                sh "chmod a+rx build_JSAuth.sh"
-                sh "./build_JSAuth.sh"
-                
-               def access = 'test'
-               def refresh = 'test2'
-               //build the docker image
-               sh """
-               docker build \
-               --build-arg \
-                APP_NAME=${params.CONTAINER_NAME} \
-                ARG_ACCESS_TOKEN_SECRET=${access} \
-                ARG_REFRESH_TOKEN_SECRET=${refresh} \
-               -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
-               """
-               
-                
+                try{
+                    echo "Working in ${pwd}"
+                    //make the tarball 
+                    sh "chmod a+rx build_JSAuth.sh"
+                    sh "./build_JSAuth.sh"
+                    
+                def access = 'test'
+                def refresh = 'test2'
+                //build the docker image
+                sh """
+                docker build \
+                --build-arg \
+                    APP_NAME=${params.CONTAINER_NAME} \
+                    ARG_ACCESS_TOKEN_SECRET=${access} \
+                    ARG_REFRESH_TOKEN_SECRET=${refresh} \
+                -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
+                """
+                }
+                finally
+                {
+                    deleteDir()
+                }           
+                                
 
 
             
