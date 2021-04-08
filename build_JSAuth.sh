@@ -11,10 +11,8 @@ if [ ! -d build ]
 then
     mkdir build/ && echo "build/ DIR created successfully" 
 fi
-echo "run LS"
-ls -ltr
 
-echo "end ls"
+echo "BDs: $BUILD_DIRS"
 #TODO: make this recursive for sub directories
 for DIR in $BUILD_DIRS
     do
