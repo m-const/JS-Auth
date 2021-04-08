@@ -16,5 +16,5 @@ COPY build/* /
 
 
 #start the app
-RUN ['npm', 'install app.tar.gz']
+RUN npm install app.tar.gz
 CMD ['npm','startProd']
