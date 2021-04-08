@@ -7,9 +7,9 @@ BUILD_DIRS="routes utils models"
 ROOT_FILES="server.js package.json package-lock.json"
 
 #ensure the build dir exists
-if [ ! -d /build/]
+if [ ! -d build ]
 then
-    mkdir /build/ && echo "/build/ created  successfully" 
+    mkdir build/ && echo "/build/ created  successfully" 
 fi
 
 #TODO: make this recursive for sub directories
