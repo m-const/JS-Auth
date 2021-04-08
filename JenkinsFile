@@ -1,28 +1,65 @@
 properties([parameters([string(defaultValue: 3000, description: 'Port?', name: 'PORT')])]) //${params.PORT}
-properties([parameters([string(defaultValue: 'JSAuth', description: 'Container Name?', name: 'CONTAINER_NAME')])]) //${params.CONTAINER_NAME}
+properties([parameters([string(defaultValue: 'JSAuth', description: 'Application Name (used as container name, no spaces or symboles)?', name: 'CONTAINER_NAME')])]) //${params.CONTAINER_NAME}
+properties([parameters([string(name: 'IMAGE_NAME', defaultValue: 'JSAuth', description: "Docker Image Name")])])//${params.IMAGE_NAME}
 
 node ('docker'){
     checkout scm
-    stages{
+    
+        env.DOCKER_IMAGE_VERSION="0.1"
+
         stage('Build') {
-            
-       
+                //run linting
+                //sh 'npm lint'
+
                 //run unit tests
                 sh 'npm test'
 
-                //prepare files for build
+                //make the tarball 
+                sh "chmod a+rx build_JSAuth.sh"
+                sh "./build_JSAuth.sh"
+                
+               def access = 'test'
+               def refresh = 'test2'
+               //build the docker image
+               sh """
+               docker build \
+               --build-arg \
+                APP_NAME=${params.CONTAINER_NAME} \
+                ARG_ACCESS_TOKEN_SECRET=${access} \
+                ARG_REFRESH_TOKEN_SECRET=${refresh} \
+               -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
+               """
+               
                 
 
 
             
         }
-
-        stage('Test') {
-           
-        }
-
         stage('Deploy') {
-            echo 'Deploying....'
+            if(env.BRANCH_NAME =='master'){
+                //pass prod environment file
+            }else {
+                 //pass non-prod environment file
+                 
+            }
+
+
+                sh "docker run --name ${params.CONTAINER_NAME} -p ${PORT}:${PORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
+            
         }
-    }
+        
+
+           if(env.BRANCH_NAME =='master'){
+              stage('Performance Test') {
+               //run jMeter script if we are deploying to prod
+            echo "Run jMeter Script"
+            }
+           } 
+           stage('Functional Test') {
+           //run postman script
+           echo "Run Postman collection"
+        }
+
+        
+    
 }

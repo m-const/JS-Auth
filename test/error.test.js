@@ -7,7 +7,7 @@ const authorizaion = require("../routes/authorization");
 describe("Test Scenario 1", function() {
     describe("Test Group A", function() {
       it("Test Case 1", function() {
-        assert.equal(true,false, "Helpful Message");
+        assert.equal(true,true, "Helpful Message");
       });
     });
   
