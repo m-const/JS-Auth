@@ -1,5 +1,5 @@
 FROM node:14.16.0-alpine3.13
-ARG APP_NAME="Anura"
+ARG APP_NAME="app"
 ARG APP_PORT=3000
 
 #this is insecure - should be done via docker secrets using swarm
@@ -16,4 +16,4 @@ COPY app.tar.gz /var/www/$APP_NAME
 
 #start the app
 RUN npm install app.tar.gz
-CMD npm startProd
+CMD npm run startProd
