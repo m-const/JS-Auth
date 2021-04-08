@@ -3,7 +3,8 @@
 echo "Running script: ${0} in: $( pwd ) using $( which bash )"
 
 #copy required files to the dist DIR. Assume provided build DIRS are ALL required, only specified root files are included
-BUILD_DIRS=$(ls | grep 'models\|utils\|routes')
+BUILD_DIRS="models utils routes"
+#$(ls | grep 'models\|utils\|routes')
 ROOT_FILES="server.js package.json package-lock.json"
 
 #ensure the build dir exists
@@ -24,11 +25,10 @@ for DIR in $BUILD_DIRS
         fi
 
         #loop through each file in the DIR
-        echo "LS $( ls $DIR )"
         FILES=$( ls $DIR )
         for FILE in $FILES
             do  
-                cp -r $FILE build/$DIR/$FILE && echo "Copied $FILE to build/$DIR/$FILE successfully" 
+                cp -r $DIR/$FILE build/$DIR/$FILE && echo "Copied $DIR/$FILE to build/$DIR/$FILE successfully" 
         done 
     
 done
