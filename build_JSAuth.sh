@@ -9,14 +9,14 @@ ROOT_FILES="server.js package.json package-lock.json"
 #ensure the build dir exists
 if [ ! -d build ]
 then
-    mkdir build/ && echo "/build/ created  successfully" 
+    mkdir build/ && echo "build/ DIR created successfully" 
 fi
 
 #TODO: make this recursive for sub directories
 for DIR in $BUILD_DIRS
     do
         #check if the DIR is valid
-        [!-d $DIR] && echo "WARN - $DIR is not a directory"; continue;
+        [ !-d $DIR ] && echo "WARN - $DIR is not a directory"; continue;
 
         #loop through each file in the DIR
         FILES =$(ls $DIR)
