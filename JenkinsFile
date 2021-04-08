@@ -35,7 +35,7 @@ node ('docker'){
                 }
                 finally
                 {
-                    deleteDir()
+                    //deleteDir()
                 }           
                                 
 
