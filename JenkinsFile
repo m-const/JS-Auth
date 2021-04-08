@@ -1,11 +1,11 @@
+properties([
+    parameters([
+        string(name: 'PORT', defaultValue: "3000", description: 'Port?'),
+        string(name: 'CONTAINER_NAME', defaultValue: 'JSAuth', description: 'Application Name (used as container name, no spaces or symboles)?'),
+        string(name: 'IMAGE_NAME', defaultValue: 'JSAuth', description: "Docker Image Name")
+    ])
+])
 node ('docker'){
-
-properties([parameters(
-[string(name: 'PORT', defaultValue: "3000", description: 'Port?')]
-[string(name: 'CONTAINER_NAME', defaultValue: 'JSAuth', description: 'Application Name (used as container name, no spaces or symboles)?')],
-[string(name: 'IMAGE_NAME', defaultValue: 'JSAuth', description: "Docker Image Name")])])//${params.IMAGE_NAME}
-
-
     checkout scm
     
         env.DOCKER_IMAGE_VERSION="0.1"
