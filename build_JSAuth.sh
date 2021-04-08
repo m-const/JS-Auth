@@ -23,7 +23,6 @@ for DIR in $BUILD_DIRS
             echo "WARN - $DIR is not a directory"
             continue
         else
-        then
             mkdir "build/$DIR" && echo "Created build/$DIR directory successfully " 
         fi
 
