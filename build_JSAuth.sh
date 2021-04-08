@@ -11,7 +11,10 @@ if [ ! -d build ]
 then
     mkdir build/ && echo "build/ DIR created successfully" 
 fi
+echo "run LS"
+ls -ltr
 
+echo "end ls"
 #TODO: make this recursive for sub directories
 for DIR in $BUILD_DIRS
     do
@@ -36,4 +39,4 @@ done
 
 
 #make tarball
-tar -czv app.tar.gz build && echo "tarball file created"
+tar -czf app.tar.gz build && echo "tarball file created"
