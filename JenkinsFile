@@ -12,7 +12,7 @@ node ('docker'){
                 //sh 'npm lint'
 
                 //run unit tests
-                sh 'npm test'
+               // sh 'npm test'
 
                 echo "Working in ${pwd}"
                 //make the tarball 
