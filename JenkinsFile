@@ -1,5 +1,5 @@
-properties([parameters([string(defaultValue: "3000", description: 'Port?', name: 'PORT')])]) //${params.PORT}
-properties([parameters([string(defaultValue: 'JSAuth', description: 'Application Name (used as container name, no spaces or symboles)?', name: 'CONTAINER_NAME')])]) //${params.CONTAINER_NAME}
+properties([parameters([string(name: 'PORT', defaultValue: "3000", description: 'Port?')])]) //${params.PORT}
+properties([parameters([string(name: 'CONTAINER_NAME', defaultValue: 'JSAuth', description: 'Application Name (used as container name, no spaces or symboles)?')])]) //${params.CONTAINER_NAME}
 properties([parameters([string(name: 'IMAGE_NAME', defaultValue: 'JSAuth', description: "Docker Image Name")])])//${params.IMAGE_NAME}
 
 node ('docker'){
