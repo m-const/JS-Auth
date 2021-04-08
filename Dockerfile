@@ -9,11 +9,9 @@ ARG ARG_REFRESH_TOKEN_SECRET
 ENV PORT=$APP_PORT
 ENV ACCESS_TOKEN_SECRET=$ARG_ACCESS_TOKEN_SECRET
 ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
-COPY app.tar.gz /
-#Create app location and set working directory
-WORKDIR /var/www/$APP_NAME
 
-
+#copy the app
+COPY app.tar.gz /var/www/$APP_NAME
 
 #start the app
 RUN npm install app.tar.gz
