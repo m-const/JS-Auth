@@ -3,7 +3,7 @@
 echo "Running script: ${0} in: $( pwd ) using $( which bash )"
 
 #copy required files to the dist DIR. Assume provided build DIRS are ALL required, only specified root files are included
-BUILD_DIRS="routes utils models"
+BUILD_DIRS=ls | grep 'models\|utils\|routes'
 ROOT_FILES="server.js package.json package-lock.json"
 
 #ensure the build dir exists

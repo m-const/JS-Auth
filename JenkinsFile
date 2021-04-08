@@ -1,8 +1,10 @@
+node ('docker'){
+
 properties([parameters([string(name: 'PORT', defaultValue: "3000", description: 'Port?')])]) //${params.PORT}
 properties([parameters([string(name: 'CONTAINER_NAME', defaultValue: 'JSAuth', description: 'Application Name (used as container name, no spaces or symboles)?')])]) //${params.CONTAINER_NAME}
 properties([parameters([string(name: 'IMAGE_NAME', defaultValue: 'JSAuth', description: "Docker Image Name")])])//${params.IMAGE_NAME}
 
-node ('docker'){
+
     checkout scm
     
         env.DOCKER_IMAGE_VERSION="0.1"
