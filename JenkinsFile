@@ -14,7 +14,7 @@ node ('docker'){
                 //run unit tests
                 sh 'npm test'
 
-                echo "Working in $( pwd )"
+                echo "Working in ${pwd}"
                 //make the tarball 
                 sh "chmod a+rx build_JSAuth.sh"
                 sh "./build_JSAuth.sh"
