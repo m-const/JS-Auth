@@ -27,10 +27,9 @@ node ('docker'){
                 //build the docker image
                 sh """
                 docker build \
-                --build-arg \
-                    APP_NAME=${params.CONTAINER_NAME} \
-                    ARG_ACCESS_TOKEN_SECRET=${access} \
-                    ARG_REFRESH_TOKEN_SECRET=${refresh} \
+                --build-arg APP_NAME=${params.CONTAINER_NAME} \
+                --build-arg ARG_ACCESS_TOKEN_SECRET=${access} \
+                --build-arg ARG_REFRESH_TOKEN_SECRET=${refresh} \
                 -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
                 """
                 }
