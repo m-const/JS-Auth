@@ -16,13 +16,13 @@ fi
 for DIR in $BUILD_DIRS
     do
         #check if the DIR is valid
-        [ !-d $DIR ] && echo "WARN - $DIR is not a directory"; continue;
+        [ ! -d $DIR ] && echo "WARN - $DIR is not a directory"; continue;
 
         #loop through each file in the DIR
         FILES =$(ls $DIR)
         for FILE in $FILES
             do  
-                cp -r $FILE /build/$DIR/$FILE && echo "Copied $FILE to build/$DIR/$FILE successfully" 
+                cp -r $FILE build/$DIR/$FILE && echo "Copied $FILE to build/$DIR/$FILE successfully" 
         done 
     
 done
@@ -30,7 +30,7 @@ done
 # Add additional files from project root 
 for RF in $ROOT_FILES
     do
-        cp $RF /build/$RF && echo "Copied $RF to build/$RF successfully" 
+        cp $RF build/$RF && echo "Copied $RF to build/$RF successfully" 
 done
 
 
