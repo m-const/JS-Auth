@@ -19,7 +19,8 @@ for DIR in $BUILD_DIRS
         [ ! -d $DIR ] && echo "WARN - $DIR is not a directory"; continue;
 
         #loop through each file in the DIR
-        FILES=$(ls $DIR)
+        echo "LS $( ls $DIR )"
+        FILES=$( ls $DIR )
         for FILE in $FILES
             do  
                 cp -r $FILE build/$DIR/$FILE && echo "Copied $FILE to build/$DIR/$FILE successfully" 
