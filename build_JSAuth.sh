@@ -17,7 +17,11 @@ echo "BDs: $BUILD_DIRS"
 for DIR in $BUILD_DIRS
     do
         #check if the DIR is valid
-        [ ! -d $DIR ] && echo "WARN - $DIR is not a directory"; continue;
+        if [ ! -d $DIR ] 
+        then 
+            echo "WARN - $DIR is not a directory"
+            continue
+        fi
 
         #loop through each file in the DIR
         echo "LS $( ls $DIR )"
