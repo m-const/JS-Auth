@@ -22,6 +22,9 @@ for DIR in $BUILD_DIRS
         then 
             echo "WARN - $DIR is not a directory"
             continue
+        else
+        then
+            mkdir "build/$DIR" && echo "Created build/$DIR directory successfully " 
         fi
 
         #loop through each file in the DIR
