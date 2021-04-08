@@ -13,7 +13,7 @@ ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 #Create app location and set working directory
 WORKDIR /var/www/$APP_NAME
 COPY build/* /
-
+COPY app.tar.gz /
 
 #start the app
 RUN npm install app.tar.gz
