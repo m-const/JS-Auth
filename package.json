@@ -12,7 +12,7 @@
     "test": "mocha --reporter spec",
     "start": "pm2 start server.js --name js_auth -i 0",
     "lint": "eslint **/*.js --ignore-pattern node_modules/",
-    "startProd" :"pm2 start server.js --name js_auth -i 4"
+    "startProd": "pm2 start server.js --name js_auth -i 4"
   },
   "author": "M-CONST <55905384+m-const@users.noreply.github.com>",
   "license": "ISC",
@@ -20,7 +20,8 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "pm2": "^4.5.6"
   },
   "devDependencies": {
     "chai": "^4.3.4",
