@@ -34,7 +34,7 @@ if(env.BRANCH_NAME =='master'){
                 sh """
                 docker build \
                 --build-arg APP_NAME=${params.CONTAINER_NAME} \
-                --build-arg BUILD_TAR=${BUILD_TAR}
+                --build-arg BUILD_TAR=${BUILD_TAR}\
                 --build-arg ARG_ACCESS_TOKEN_SECRET=${access} \
                 --build-arg ARG_REFRESH_TOKEN_SECRET=${refresh} \
                 -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
