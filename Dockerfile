@@ -1,4 +1,5 @@
-FROM node:14.16.0-alpine3.13
+#FROM node:14.16-alpine3.13
+FROM node:lts
 ARG APP_NAME="app"
 ARG APP_PORT=3000
 
