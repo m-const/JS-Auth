@@ -2,7 +2,7 @@
 FROM node:lts
 ARG APP_NAME="app"
 ARG APP_PORT=3000
-ARG BUILD_TAR
+
 #this is insecure - should be done via docker secrets using swarm
 ARG ARG_ACCESS_TOKEN_SECRET
 ARG ARG_REFRESH_TOKEN_SECRET
@@ -13,9 +13,8 @@ ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 
 #copy the app
 WORKDIR /usr/src/$APP_NAME/
-COPY $BUILD_TAR ./
+COPY build/* ./
 
 #start the app
-RUN npm install /usr/src/$APP_NAME/$BUILD_TAR
-RUN ls -ltr
+RUN npm install
 CMD npm run start

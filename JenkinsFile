@@ -13,19 +13,14 @@ if(env.BRANCH_NAME =='master'){
         env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
         checkout scm
         stage('Build') {
-                def BUILD_TAR
 
-                //pack the project
                 sh 'node --version'
                 sh 'npm --version'
-                sh 'npm pack'
+                   
+                sh "chmod a+rx build_JSAuth.sh"
+                sh "./build_JSAuth.sh"
 
-                //get the built tgz file
-                BUILD_TAR = sh( 
-                    script: 'ls  | grep *.tgz',
-                    returnStdout: true
-                ).trim()
-                
+            
 
                 try{
                 def ACCESS = 'test'
@@ -35,7 +30,6 @@ if(env.BRANCH_NAME =='master'){
                 sh """
                 docker build \
                 --build-arg APP_NAME=${params.CONTAINER_NAME} \
-                --build-arg BUILD_TAR=${BUILD_TAR} \
                 --build-arg ARG_ACCESS_TOKEN_SECRET=${ACCESS} \
                 --build-arg ARG_REFRESH_TOKEN_SECRET=${REFRESH} \
                 -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
