@@ -12,8 +12,8 @@ ENV ACCESS_TOKEN_SECRET=$ARG_ACCESS_TOKEN_SECRET
 ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 
 #copy the app
-WORKDIR /home/$APP_NAME
-COPY app.tar.gz /home/$APP_NAME
+WORKDIR /home/$APP_NAME/
+COPY app.tar.gz /home/$APP_NAME/
 
 #start the app
 RUN npm install app.tar.gz
