@@ -12,14 +12,8 @@ node ('docker'){
 
         stage('Build') {
                 env.NODEJS_HOME = "${tool 'NodeJS 14.16'}"
-    // on linux / mac
                 env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
-                //run linting
-                //sh 'npm run lint'
-
-                //run unit tests
-                sh 'npm --version'
-                sh 'npm run test'
+                
 
                 if(env.BRANCH_NAME =='master'){
                     //pack the project
@@ -54,13 +48,8 @@ node ('docker'){
         stage('Deploy') {
             if(env.BRANCH_NAME =='master'){
                 //pass prod environment file
-            }else {
-                 //pass non-prod environment file
-
             }
-
-
-                sh "docker run --name ${params.CONTAINER_NAME} -p ${PORT}:${PORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
+            sh "docker run --name ${params.CONTAINER_NAME} -p ${PORT}:${PORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
             
         }
         
