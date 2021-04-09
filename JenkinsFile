@@ -16,8 +16,9 @@ if(env.BRANCH_NAME =='master'){
                 def BUILD_TAR
 
                 //pack the project
+                sh 'node --version'
+                sh 'npm --version'
                 sh 'npm pack'
-                sh 'ls'
 
                 //get the built tgz file
                 BUILD_TAR = sh( 
@@ -27,22 +28,22 @@ if(env.BRANCH_NAME =='master'){
                 
 
                 try{
-                def access = 'test'
-                def refresh = 'test2'
+                def ACCESS = 'test'
+                def REFRESH = 'test2'
 
                 //build the docker image
                 sh """
                 docker build \
                 --build-arg APP_NAME=${params.CONTAINER_NAME} \
-                --build-arg BUILD_TAR=${BUILD_TAR}\
-                --build-arg ARG_ACCESS_TOKEN_SECRET=${access} \
-                --build-arg ARG_REFRESH_TOKEN_SECRET=${refresh} \
+                --build-arg BUILD_TAR=${BUILD_TAR} \
+                --build-arg ARG_ACCESS_TOKEN_SECRET=${ACCESS} \
+                --build-arg ARG_REFRESH_TOKEN_SECRET=${REFRESH} \
                 -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
                 """
                 }
                 finally
                 {
-                    //deleteDir()
+                    deleteDir()
                 }           
         }
 
