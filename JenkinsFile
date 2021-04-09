@@ -5,32 +5,36 @@ properties([
         string(name: 'IMAGE_NAME', defaultValue: 'jsauth', description: "Docker Image Name")
     ])
 ])
-node ('docker'){
-    checkout scm
-    
-        env.DOCKER_IMAGE_VERSION="0.1"
+env.DOCKER_IMAGE_VERSION="0.1"
 
+if(env.BRANCH_NAME =='master'){
+    node ('docker'){
+        env.NODEJS_HOME = "${tool 'NodeJS 14.16'}"
+        env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
+        checkout scm
         stage('Build') {
-                env.NODEJS_HOME = "${tool 'NodeJS 14.16'}"
-                env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
+                def BUILD_TAR
+
+                //pack the project
+                sh 'npm pack'
+                sh 'ls'
+
+                //get the built tgz file
+                BUILD_TAR = sh( 
+                    script: 'ls  | grep *.tgz',
+                    returnStdout: true
+                ).trim()
                 
 
-                if(env.BRANCH_NAME =='master'){
-                    //pack the project
-                    sh 'npm pack'
-                    sh 'ls'
-                    sh 'ls  | grep *.tgz'
-                }
-
                 try{
-               
-                    
                 def access = 'test'
                 def refresh = 'test2'
+
                 //build the docker image
                 sh """
                 docker build \
                 --build-arg APP_NAME=${params.CONTAINER_NAME} \
+                --build-arg BUILD_TAR=${BUILD_TAR}
                 --build-arg ARG_ACCESS_TOKEN_SECRET=${access} \
                 --build-arg ARG_REFRESH_TOKEN_SECRET=${refresh} \
                 -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
@@ -40,31 +44,31 @@ node ('docker'){
                 {
                     //deleteDir()
                 }           
-                                
-
-
-            
         }
+
         stage('Deploy') {
             if(env.BRANCH_NAME =='master'){
                 //pass prod environment file
             }
             sh "docker run --name ${params.CONTAINER_NAME} -p ${PORT}:${PORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
-            
         }
+    }
+}
         
+//run test via test tools from master
+node ('master'){
 
-           if(env.BRANCH_NAME =='master'){
-              stage('Performance Test') {
-               //run jMeter script if we are deploying to prod
+    if(env.BRANCH_NAME =='master'){
+        stage('Performance Test') {
+            //run jMeter script if we are deploying to prod
             echo "Run jMeter Script"
-            }
-           } 
-           stage('Functional Test') {
-           //run postman script
-           echo "Run Postman collection"
         }
+    } 
+    stage('Functional Test') {
+        //run postman script
+        echo "Run Postman collection"
+    }
 
+}
         
     
-}
