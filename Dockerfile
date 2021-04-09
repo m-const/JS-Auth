@@ -16,7 +16,7 @@ WORKDIR /usr/src/$APP_NAME/
 COPY $BUILD_TAR ./
 
 #start the app
-RUN pwd
+RUN ls -ltr
 RUN npm ci /usr/src/$APP_NAME/$BUILD_TAR
-RUN pwd
+RUN ls -ltr
 CMD npm run start
