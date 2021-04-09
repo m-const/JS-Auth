@@ -17,5 +17,5 @@ COPY $BUILD_TAR ./
 
 #start the app
 RUN npm install /usr/src/$APP_NAME/$BUILD_TAR
-COPY package*.json ./
+RUN ls -ltr
 CMD npm run start
