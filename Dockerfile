@@ -14,7 +14,8 @@ ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 #copy the app
 WORKDIR /usr/src/$APP_NAME/
 COPY $BUILD_TAR ./
-COPY package*.json ./
+
 #start the app
 RUN npm install /usr/src/$APP_NAME/$BUILD_TAR
+COPY package*.json ./
 CMD npm run start
