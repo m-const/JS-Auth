@@ -16,5 +16,5 @@ WORKDIR /usr/src/$APP_NAME/
 COPY $BUILD_TAR ./
 
 #start the app
-RUN npm install $BUILD_TAR
+RUN npm install /usr/src/$APP_NAME/$BUILD_TAR
 CMD npm run startProd
