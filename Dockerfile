@@ -16,5 +16,5 @@ WORKDIR /usr/src/$APP_NAME/
 COPY build/* ./
 
 #start the app
-RUN npm install
+RUN npm install --only=prod
 CMD npm run start

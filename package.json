@@ -10,7 +10,7 @@
   "scripts": {
     "devStart": "nodemon server.js",
     "test": "mocha --reporter spec",
-    "start": "pm2 start server.js --name js_auth -i 4",
+    "start": "pm2 start server.js --name js_auth -i 0",
     "lint": "eslint **/*.js --ignore-pattern node_modules/"
   },
   "author": "M-CONST <55905384+m-const@users.noreply.github.com>",
