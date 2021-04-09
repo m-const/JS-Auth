@@ -11,16 +11,25 @@ node ('docker'){
         env.DOCKER_IMAGE_VERSION="0.1"
 
         stage('Build') {
+                env.NODEJS_HOME = "${tool 'NodeJS 14.16'}"
+    // on linux / mac
+                env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
                 //run linting
-                //sh 'npm lint'
+                //sh 'npm run lint'
 
                 //run unit tests
-               // sh 'npm test'
+                sh 'npm --version'
+                sh 'npm run test'
+
+                if(env.BRANCH_NAME =='master'){
+                    //pack the project
+                    sh 'npm pack'
+                    sh 'ls'
+                    sh 'ls  | grep *.tgz'
+                }
+
                 try{
-                    echo "Working in ${pwd}"
-                    //make the tarball 
-                    sh "chmod a+rx build_JSAuth.sh"
-                    sh "./build_JSAuth.sh"
+               
                     
                 def access = 'test'
                 def refresh = 'test2'
