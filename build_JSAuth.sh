@@ -3,11 +3,13 @@
 echo "Running script: ${0} in: $( pwd ) using $( which bash )"
 
 #copy required files to the dist DIR. Assume provided build DIRS are ALL required, only specified root files are included
+
 BUILD_DIRS="models utils routes"
 #$(ls | grep 'models\|utils\|routes')
 ROOT_FILES="server.js package.json package-lock.json"
 
 #the directory name we want to put the contents - by default this should be package.
+#this must be the same build directory as the docker file
 BUILD_DIR_NAME="package"
 
 
