@@ -46,7 +46,7 @@ if(env.BRANCH_NAME =='master'){
 
         stage('Deploy') {
             if(params.DOCKER_RM){
-                echo "Deleting other containers"
+                echo "Deleting other container with the same container name"
                  sh "docker rm ${params.CONTAINER_NAME} -f || exit 0"
             }
            
@@ -76,7 +76,7 @@ node ('docker'){
             sh "ls -ltr"
             //run postman script
             echo "Run Postman collection"
-            sh "newman run JSAuth.postman_collection.json -e JS_Auth_Prod.postman_environment.json --reporters json --reporter-cli --reporter-json-export result.json"
+            sh "newman run JSAuth.postman_collection.json -e JS_Auth_Prod.postman_environment.json --reporters cli,json --reporter-cli --reporter-json-export result.json"
             archiveArtifacts artifacts: 'result.json', fingerprint: true
             }
             finally
