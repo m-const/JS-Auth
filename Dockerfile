@@ -17,4 +17,4 @@ COPY package/* ./
 
 #start the app
 RUN npm install --only=prod
-CMD npm run start
+CMD pm2 start server.js --name js_auth -i 0

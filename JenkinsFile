@@ -64,10 +64,17 @@ node ('docker'){
         //checkout test cases from the test case repo: https://github.com/m-const/JSAuthTests.git
         sh "mkdir postman"
         dir("postman"){
+            try{
             checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/m-const/JSAuthTests.git']]])
             sh "ls -ltr"
             //run postman script
             echo "Run Postman collection"
+            sh "newman run JSAuth.postman_collection.json -e JS_Auth_Prod.postman_environment.json"
+            }
+            finally
+            {
+                deleteDir()
+            }  
         }
     }
 
