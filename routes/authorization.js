@@ -80,6 +80,19 @@ const jwt = require("jsonwebtoken");
 function authorizeClientID(client_id, redirect_uri = "", scope, state) {}
 
 const router = express.Router();
+//TODO: move this to a HC method and refactor
+router.get("/healthcheck", (req, res) => {
+  const responseObject = {
+      "ENV_VARS":process.env
+  }
+
+
+  res
+  .status(200)
+  .json(responseObject)
+  .end();
+return;
+});
 
 router.post("/authorization", (req, res) => {
   //TODO: make response type extendable to allow for a registered extension value as described by Section 8.4.
