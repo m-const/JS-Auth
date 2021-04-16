@@ -15,7 +15,7 @@ ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 WORKDIR /usr/src/$APP_NAME/
 COPY package/* ./
 
-
+RUN ls -ltr
 #start the app
 RUN npm install --only=prod
 CMD npm start
