@@ -13,7 +13,7 @@ ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 
 #copy the app
 WORKDIR /usr/src/$APP_NAME/
-COPY package/* ./
+COPY package/ ./
 
 RUN ls -ltr
 #start the app
