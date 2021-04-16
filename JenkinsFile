@@ -32,6 +32,7 @@ if(env.BRANCH_NAME =='master'){
                 docker build \
                 --build-arg APP_NAME=${params.CONTAINER_NAME} \
                 --build-arg ARG_ACCESS_TOKEN_SECRET=${ACCESS} \
+                --build-arg APP_PORT=${PORT} \
                 --build-arg ARG_REFRESH_TOKEN_SECRET=${REFRESH} \
                 -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
                 """
