@@ -53,7 +53,9 @@ if(env.BRANCH_NAME =='master'){
         
 //run test via test tools from master
 node ('docker'){
+    echo "Start Testing Phase"
     env.NODEJS_HOME = "${tool 'NodeJS-Postman'}"
+    env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
     if(env.BRANCH_NAME =='master'){
         stage('Performance Test') {
             //run jMeter script if we are deploying to prod
