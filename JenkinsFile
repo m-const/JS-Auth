@@ -46,7 +46,8 @@ if(env.BRANCH_NAME =='master'){
 
         stage('Deploy') {
             if(params.DOCKER_RM){
-                 sh "docker rm ${params.CONTAINER_NAME} -f"
+                echo "Deleting other containers"
+                 sh "docker rm ${params.CONTAINER_NAME} -f || exit 0"
             }
            
             sh "docker run --name ${params.CONTAINER_NAME} -p ${PORT}:${PORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
