@@ -15,6 +15,8 @@ ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 WORKDIR /usr/src/$APP_NAME/
 COPY package/ ./
 
+RUN npm i pm2 -g
+
 #start the app
 RUN npm install --only=prod
-CMD npm start
+CMD pm2 start server.js --name js_auth -i 4

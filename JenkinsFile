@@ -14,11 +14,8 @@ if(env.BRANCH_NAME =='master'){
         env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
         checkout scm
         stage('Build') {
-
                 sh 'node --version'
                 sh 'npm --version'
-
-                
 
                 //populate the package directory for building   
                 sh "chmod a+rx build_JSAuth.sh"

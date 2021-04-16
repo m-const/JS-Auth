@@ -10,6 +10,8 @@ function log(msg, severity ='INFO') {
   return;
 }
 
+
+
 module.exports = {
   log
 };

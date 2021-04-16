@@ -76,14 +76,24 @@ const log = require("../utils/logger.js").log;
 const error = require("../utils/error.js").error;
 const validateParam = require("../utils/validation.js").validateParam;
 const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose');
 
-function authorizeClientID(client_id, redirect_uri = "", scope, state) {}
+//validate client ID
+const AuthorizedClients = require("../models/authorizedClients");
+function authorizeClientID(client_id, redirect_uri = "", scope, state) {
+  AuthorizedClients.findOne({ email: email.toUpperCase() }).then((user) => {
+  });
+}
 
 const router = express.Router();
 //TODO: move this to a HC method and refactor
 router.get("/healthcheck", (req, res) => {
+  
+const mongoStatus = (mongoose.connection.readyState === 1) ? "Connected" : "Unavailable";
+
   const responseObject = {
-      "PORT":process.env.PORT
+      "PORT:":process.env.PORT,
+      "Mongo DB Status:" : mongoStatus
   }
 
 
