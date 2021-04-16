@@ -23,8 +23,6 @@ if(env.BRANCH_NAME =='master'){
                 sh "chmod a+rx build_JSAuth.sh"
                 sh "./build_JSAuth.sh"
 
-                npm             
-
                 try{
                 def ACCESS = 'test'
                 def REFRESH = 'test2'
