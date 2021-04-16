@@ -16,11 +16,14 @@ if(env.BRANCH_NAME =='master'){
 
                 sh 'node --version'
                 sh 'npm --version'
-                   
+
+                
+
+                //populate the package directory for building   
                 sh "chmod a+rx build_JSAuth.sh"
                 sh "./build_JSAuth.sh"
 
-            
+                npm             
 
                 try{
                 def ACCESS = 'test'
@@ -51,8 +54,8 @@ if(env.BRANCH_NAME =='master'){
 }
         
 //run test via test tools from master
-node ('master'){
-
+node ('docker'){
+    env.NODEJS_HOME = "${tool 'NodeJS-Postman'}"
     if(env.BRANCH_NAME =='master'){
         stage('Performance Test') {
             //run jMeter script if we are deploying to prod
@@ -60,8 +63,14 @@ node ('master'){
         }
     } 
     stage('Functional Test') {
-        //run postman script
-        echo "Run Postman collection"
+        //checkout test cases from the test case repo: https://github.com/m-const/JSAuthTests.git
+        sh "mkdir postman"
+        dir("postman"){
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/m-const/JSAuthTests.git']]])
+            sh "ls -ltr"
+            //run postman script
+            echo "Run Postman collection"
+        }
     }
 
 }

@@ -7,10 +7,14 @@ BUILD_DIRS="models utils routes"
 #$(ls | grep 'models\|utils\|routes')
 ROOT_FILES="server.js package.json package-lock.json"
 
+#the directory name we want to put the contents - by default this should be package.
+BUILD_DIR_NAME="package"
+
+
 #ensure the build dir exists
 if [ ! -d build ]
 then
-    mkdir build/ && echo "build/ DIR created successfully" 
+    mkdir build/ && echo "$BUILD_DIR_NAME/ DIR created successfully" 
 fi
 
 echo "BDs: $BUILD_DIRS"
@@ -24,14 +28,14 @@ for DIR in $BUILD_DIRS
             echo "WARN - $DIR is not a directory"
             continue
         else
-            mkdir "build/$DIR" && echo "Created build/$DIR directory successfully " 
+            mkdir "$BUILD_DIR_NAME/$DIR" && echo "Created $BUILD_DIR_NAME/$DIR directory successfully " 
         fi
 
         #loop through each file in the DIR
         FILES=$( ls $DIR )
         for FILE in $FILES
             do  
-                cp -r $DIR/$FILE build/$DIR/$FILE && echo "Copied $DIR/$FILE to build/$DIR/$FILE successfully" 
+                cp -r $DIR/$FILE $BUILD_DIR_NAME/$DIR/$FILE && echo "Copied $DIR/$FILE to $BUILD_DIR_NAME/$DIR/$FILE successfully" 
         done 
     
 done
@@ -39,6 +43,6 @@ done
 # Add additional files from project root 
 for RF in $ROOT_FILES
     do
-        cp $RF build/$RF && echo "Copied $RF to build/$RF successfully" 
+        cp $RF $BUILD_DIR_NAME/$RF && echo "Copied $RF to $BUILD_DIR_NAME/$RF successfully" 
 done
 
