@@ -12,7 +12,7 @@ BUILD_DIR_NAME="package"
 
 
 #ensure the build dir exists
-if [ ! -d build ]
+if [ ! -d $BUILD_DIR_NAME ]
 then
     mkdir $BUILD_DIR_NAME/ && echo "$BUILD_DIR_NAME/ DIR created successfully" 
 fi
