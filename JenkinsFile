@@ -2,7 +2,8 @@ properties([
     parameters([
         string(name: 'PORT', defaultValue: "3001", description: 'Port?'),
         string(name: 'CONTAINER_NAME', defaultValue: 'jsauth', description: 'Application Name (used as container name, no spaces or symboles)?'),
-        string(name: 'IMAGE_NAME', defaultValue: 'jsauth', description: "Docker Image Name")
+        string(name: 'IMAGE_NAME', defaultValue: 'jsauth', description: "Docker Image Name"),
+        booleanParam(name: 'DOCKER_RM', defaultValue: true, description: 'Remove other containers using the same name as the above provided container name')
     ])
 ])
 env.DOCKER_IMAGE_VERSION="0.1"
@@ -44,9 +45,10 @@ if(env.BRANCH_NAME =='master'){
         }
 
         stage('Deploy') {
-            if(env.BRANCH_NAME =='master'){
-                //pass prod environment file
+            if(params.DOCKER_RM){
+                 sh "docker rm ${params.CONTAINER_NAME} -f"
             }
+           
             sh "docker run --name ${params.CONTAINER_NAME} -p ${PORT}:${PORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
         }
     }

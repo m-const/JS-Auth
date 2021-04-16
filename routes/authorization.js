@@ -83,7 +83,7 @@ const router = express.Router();
 //TODO: move this to a HC method and refactor
 router.get("/healthcheck", (req, res) => {
   const responseObject = {
-      "ENV_VARS":process.env
+      "PORT":process.env.PORT
   }
 
 
