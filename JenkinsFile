@@ -69,7 +69,7 @@ node ('docker'){
             sh "ls -ltr"
             //run postman script
             echo "Run Postman collection"
-            sh "newman run JSAuth.postman_collection.json -e JS_Auth_Prod.postman_environment.json"
+            sh "newman run JSAuth.postman_collection -e JS_Auth_Prod.postman_environment.json"
             }
             finally
             {
