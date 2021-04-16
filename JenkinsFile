@@ -53,6 +53,7 @@ if(env.BRANCH_NAME =='master'){
         
 //run test via test tools from master
 node ('docker'){
+    sleep(90)
     echo "Start Testing Phase"
     env.NODEJS_HOME = "${tool 'NodeJS-Postman'}"
     env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
