@@ -76,7 +76,10 @@ const log = require("../utils/logger.js").log;
 const error = require("../utils/error.js").error;
 const validateParam = require("../utils/validation.js").validateParam;
 const jwt = require("jsonwebtoken");
-const mongoose = require('mongoose');
+const router = express.Router();
+
+
+
 
 //validate client ID
 const AuthorizedClients = require("../models/authorizedClients");
@@ -84,25 +87,6 @@ function authorizeClientID(client_id, redirect_uri = "", scope, state) {
   AuthorizedClients.findOne({ email: email.toUpperCase() }).then((user) => {
   });
 }
-
-const router = express.Router();
-//TODO: move this to a HC method and refactor
-router.get("/healthcheck", (req, res) => {
-  
-const mongoStatus = (mongoose.connection.readyState === 1) ? "Connected" : "Unavailable";
-
-  const responseObject = {
-      "PORT:":process.env.PORT,
-      "Mongo DB Status:" : mongoStatus
-  }
-
-
-  res
-  .status(200)
-  .json(responseObject)
-  .end();
-return;
-});
 
 router.post("/authorization", (req, res) => {
   //TODO: make response type extendable to allow for a registered extension value as described by Section 8.4.
