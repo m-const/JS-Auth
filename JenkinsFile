@@ -6,7 +6,10 @@ properties([
     ])
 ])
 env.DOCKER_IMAGE_VERSION="0.1"
-
+def ACCESS = 'test';
+def REFRESH = 'test2';
+def PORT = 3001;
+def INSTANCES = 4
 if(env.BRANCH_NAME =='master'){
     node ('docker'){
         env.NODEJS_HOME = "${tool 'NodeJS 14.16'}"
@@ -21,22 +24,17 @@ if(env.BRANCH_NAME =='master'){
                 sh "./build_JSAuth.sh"
 
                 try{
-                def ACCESS = 'test';
-                def REFRESH = 'test2';
-                def INSTANCES = 4;
-                def PORT = 3001;
-                    for(int i = 0;i<INSTANCES;i++) {
-                    //build the docker image
-                    sh """
-                    docker build \
-                    --build-arg APP_NAME=${params.CONTAINER_NAME}_${i} \
-                    --build-arg ARG_ACCESS_TOKEN_SECRET=${ACCESS} \
-                    --build-arg APP_PORT=${PORT} \
-                    --build-arg ARG_REFRESH_TOKEN_SECRET=${REFRESH} \
-                    -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
-                    """
-                    PORT++;
-                    }
+              
+                //build the docker image
+                sh """
+                docker build \
+                --build-arg APP_NAME=${params.CONTAINER_NAME}\
+                --build-arg ARG_ACCESS_TOKEN_SECRET=${ACCESS} \
+                --build-arg APP_PORT=${PORT} \
+                --build-arg ARG_REFRESH_TOKEN_SECRET=${REFRESH} \
+                -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
+                """
+                  
                 }
                 finally
                 {
@@ -49,8 +47,11 @@ if(env.BRANCH_NAME =='master'){
                 echo "Deleting other container with the same container name"
                  sh "docker rm ${params.CONTAINER_NAME} -f || exit 0"
             }
-           
-            sh "docker run --name ${params.CONTAINER_NAME} -p ${PORT}:${PORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
+            def EXPOSEDPORT = PORT;
+            for(int i=0;i < INSTANCES;i++){
+                sh "docker run --name ${params.CONTAINER_NAME}_${i} -p ${PORT}:${EXPOSEDPORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
+                EXPOSEDPORT++;
+            }
         }
     }
 }
