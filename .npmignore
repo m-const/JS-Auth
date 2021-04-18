@@ -1,4 +1,5 @@
 test/
 .env
+.env.prod
 .eslint*
 routes/methods.js 

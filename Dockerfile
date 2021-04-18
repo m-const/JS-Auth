@@ -1,5 +1,5 @@
-#FROM node:14.16-alpine3.13
-FROM node:lts
+FROM node:14.16-alpine3.13
+#FROM node:lts
 ARG APP_NAME="app"
 ARG APP_PORT=3000
 
@@ -18,5 +18,5 @@ COPY package/ ./
 RUN npm i pm2 -g
 
 #start the app
-RUN npm install --only=prod
+RUN npm ci --only=production
 CMD pm2 start server.js --name js_auth -i 4
