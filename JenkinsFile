@@ -1,6 +1,5 @@
 properties([
     parameters([
-        string(name: 'PORT', defaultValue: "3001", description: 'Port?'),
         string(name: 'CONTAINER_NAME', defaultValue: 'jsauth', description: 'Application Name (used as container name, no spaces or symboles)?'),
         string(name: 'IMAGE_NAME', defaultValue: 'jsauth', description: "Docker Image Name"),
         booleanParam(name: 'DOCKER_RM', defaultValue: true, description: 'Remove other containers using the same name as the above provided container name')
@@ -22,11 +21,11 @@ if(env.BRANCH_NAME =='master'){
                 sh "./build_JSAuth.sh"
 
                 try{
-                def ACCESS = 'test'
-                def REFRESH = 'test2'
-                def INSTANCES = 4
+                def ACCESS = 'test';
+                def REFRESH = 'test2';
+                def INSTANCES = 4;
+                def PORT = 3001;
                     for(int i = 0;i<INSTANCES;i++) {
-                        PORT++;
                     //build the docker image
                     sh """
                     docker build \
@@ -36,6 +35,7 @@ if(env.BRANCH_NAME =='master'){
                     --build-arg ARG_REFRESH_TOKEN_SECRET=${REFRESH} \
                     -t ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION} .
                     """
+                    PORT++;
                     }
                 }
                 finally
