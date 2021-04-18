@@ -49,7 +49,7 @@ if(env.BRANCH_NAME =='master'){
             }
             def EXPOSEDPORT = PORT;
             for(int i=0;i < INSTANCES;i++){
-                sh "docker run --name ${params.CONTAINER_NAME}_${i} -p ${PORT}:${EXPOSEDPORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
+                sh "docker run --name ${params.CONTAINER_NAME}_${i} -p ${EXPOSEDPORT}:${PORT} -d --restart unless-stopped ${params.IMAGE_NAME}-${params.CONTAINER_NAME}:${DOCKER_IMAGE_VERSION}"
                 EXPOSEDPORT++;
             }
         }
