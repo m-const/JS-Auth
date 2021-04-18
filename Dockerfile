@@ -1,5 +1,4 @@
 FROM node:14.16-alpine3.13
-#FROM node:lts
 ARG APP_NAME="app"
 ARG APP_PORT=3000
 
@@ -15,8 +14,8 @@ ENV REFRESH_TOKEN_SECRET=$ARG_REFRESH_TOKEN_SECRET
 WORKDIR /usr/src/$APP_NAME/
 COPY package/ ./
 
-RUN npm i pm2 -g
+
 
 #start the app
 RUN npm ci --only=production
-CMD pm2 start server.js --name js_auth -i 4
+CMD node server.js
