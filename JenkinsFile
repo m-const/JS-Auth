@@ -25,11 +25,13 @@ if(env.BRANCH_NAME =='master'){
 
                     //sonarqube scan
                 withSonarQubeEnv(credentialsId: 'sonarqube-jenkins') {
+                sh """
                 sonar-scanner \
                     -Dsonar.projectKey=JSAuth \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=http://192.168.0.126:9000 \
                     -Dsonar.login=8123e0d07f717da1ed8c11c109ab3807efed8af6
+                    """
                 }
 
                 try{
